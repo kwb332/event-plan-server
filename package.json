@@ -1,0 +1,28 @@
+{
+  "name": "event-plan-server",
+  "version": "1.0.0",
+  "description": "Node Express Server - Enabled by GraphQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "ng test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwb332/event-plan-server.git"
+  },
+  "keywords": [
+    "event",
+    "planning"
+  ],
+  "author": "Kwame Baah-Apraku",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kwb332/event-plan-server/issues"
+  },
+  "homepage": "https://github.com/kwb332/event-plan-server#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-graphql": "^0.8.0",
+    "graphql": "^14.3.0"
+  }
+}
