@@ -87,7 +87,7 @@ type Mutation {
 
         Event.findById(id, function(err,events)
         {
- 
+             
         });
         return eventData.filter(curEvent => {
             return curEvent.id == id;
@@ -97,9 +97,9 @@ type Mutation {
     var getEvents = function() {
        Event.find(function(err,events)
        {
-
+        return events;
        });
-       return eventData;
+      
     }
     
     var updateEvent = function(args)
@@ -118,7 +118,7 @@ type Mutation {
        {
            if(err)
            {
-
+              console.log(err);
            }
        });
        var startDate = new Date(args.newEvent.startDate);
