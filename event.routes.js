@@ -80,7 +80,13 @@ type Mutation {
 `);
 
 
-
+/*
+ Fetch a specific event by ID
+ getEvent - the call is done but you will need to replace the array with actual data from mongo db.  I have already written the call to fetch the data from mongo DB but there is no database so you have to install and deploy a mongo db and populate it with the actual data as seen in the array. I use this call to fetch the data from mongo:  Event.findById(id, function(err,events)
+ {  
+     // when you are done and there is a real database events will be populated and return as json to the client application
+     return events;
+ } */
 
     var getEvent = function(args) { 
         var id = args.id;
@@ -93,12 +99,22 @@ type Mutation {
             return curEvent.id == id;
         })[0];
     }
-    
+   /*To fetch all existing events
+ getEvents - the call is done but you will need to replace the array with actual data from mongo db.  I have already written the call to fetch the data from mongo DB but there is no database so you have to install and deploy a mongo db and populate it with the actual data as seen in the array. I use this call to fetch the data from mongo:    var getEvents = function() {
+       Event.find(function(err,events)
+       {
+           // when you are done and there is a real database events will be populated and return as json to the client application
+        return events;
+       });
+      
+    } */ 
     var getEvents = function() {
        Event.find(function(err,events)
        {
         return events;
        });
+
+       return eventData;
       
     }
     
@@ -112,6 +128,9 @@ type Mutation {
         });
         return eventData.filter(curEvent => curEvent.id === args.id) [0];
     }
+
+    /*  Add a new Event
+addEvent - Adds new event and returns true if successful.  Returns false if it is not successful because of event conflict.  The filter is not working so see if you can fix it. */
     var addEvent = function(args) {
        var newEvent  = new Event(args.newEvent);
        newEvent.save(function(err)
