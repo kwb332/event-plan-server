@@ -109,12 +109,19 @@ type Mutation {
       
     } */ 
     var getEvents = function() {
-       Event.find(function(err,events)
+       Event.find(function(err,Data)
        {
-        return events;
+           if(err)
+           {
+               console.log(err);
+           }
+           else
+           {
+            return Event.Data;
+           }
+       
        });
 
-       return eventData;
       
     }
     

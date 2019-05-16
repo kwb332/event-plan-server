@@ -3,7 +3,8 @@ var express = require('express');
 var mongose = require('mongoose');
 try
 {
-mongose.connect("mongodb+srv://admin:admin@cluster0-rknoo.mongodb.net/test?retryWrites=true");
+mongose.connect("mongodb+srv://admin:admin@cluster0-rknoo.mongodb.net/data?retryWrites=true",{ useNewUrlParser: true });
+
 }
 catch(err)
 {
