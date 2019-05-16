@@ -1,7 +1,14 @@
 var express = require('express');
 //Setup Database
 var mongose = require('mongoose');
-mongose.connect('mongodb://localhost/events')
+try
+{
+mongose.connect("mongodb+srv://admin:admin@cluster0-rknoo.mongodb.net/test?retryWrites=true");
+}
+catch(err)
+{
+   console.log(err);
+}
 // Create an express server and a GraphQL endpoint
 var app = express();
 var event = require('./event.routes.js')(app);
