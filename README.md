@@ -30,34 +30,33 @@ The user should have a form to create an event with the following data:
 Once you’ve completed the test please email a link to a Github/Bitbucket repo.
 
 If possible please also host the page somewhere and supply the link so that we can test it easily.
-******************What I have done so far and what I need help with******************
+******************What I have done ******************
 The main application is in event.routes.js.  The application uses the following technologies graphQL, node.js as the server, mongo DB, mongose (to querry mongoDB).  
 
 The code presented is the backend code for the application.
 
-Here are the calls I have writen so far and they can be found in event.routes.js. I have also listed the remaining work that needs to be done.
+Here are the calls I have writen so far and they can be found in event.routes.js. 
 
 1. To fetch all existing events
- getEvents - the call is done but you will need to replace the array with actual data from mongo db.  I have already written the call to fetch the data from mongo DB but there is no database so you have to install and deploy a mongo db and populate it with the actual data as seen in the array. I use this call to fetch the data from mongo:    var getEvents = function() {
+     var getEvents = function() {
        Event.find(function(err,events)
        {
-           // when you are done and there is a real database events will be populated and return as json to the client application
+         
         return events;
        });
       
     }
 
  2. Fetch a specific event by ID
- getEvent - the call is done but you will need to replace the array with actual data from mongo db.  I have already written the call to fetch the data from mongo DB but there is no database so you have to install and deploy a mongo db and populate it with the actual data as seen in the array. I use this call to fetch the data from mongo:  Event.findById(id, function(err,events)
+ I use this call to fetch the data from mongo:  Event.findById(id, function(err,events)
  {  
-     // when you are done and there is a real database events will be populated and return as json to the client application
+     
      return events;
  }
 
  3.  Add a new Event
 
-addEvent - Adds new event and returns true if successful.  Returns false if it is not successful because of event conflict.  The filter is not working so see if you can fix it.
-
+addEvent - Adds new event and returns true if successful.  Returns false if it is not successful because of event conflict.  
 Steps to run and test the server:
 
 1. get application from git using: git clone "https://github.com/kwb332/event-plan-server.git"
