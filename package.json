@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/kwb332/event-plan-server#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "graphql": "^14.3.0",

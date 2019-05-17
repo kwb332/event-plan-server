@@ -6,10 +6,13 @@ var eventSchema = mongose.Schema({
     poster: String,
     type: String,
     description: String,
-    location: String,
-    longitude: Number,
-    latitude : Number,
+    street: String,
+    state: String,
+    primaryColor: String,
+    secondaryColor: String,
     startDate: Date,
     endDate: Date,
 });
 module.exports = mongose.model('Event', eventSchema);
+
+

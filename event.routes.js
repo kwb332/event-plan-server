@@ -11,9 +11,10 @@ module.exports = function(app)
             poster: 'Samuel Kintiz',
             type: 'Wedding',
             description: 'Kintis Gets Married',
-            location: 'Mars',
-            longitude: 2345.44,
-            latitude :  2345.44,
+            street: 'Mars',
+            state: 'CA',
+            primaryColor: 'red',
+            secondaryColor:'blue',
             startDate: '02/02/2019',
             endDate: '02/02/2019'
         },
@@ -23,9 +24,10 @@ module.exports = function(app)
             poster: 'Samuel Kintiz',
             type: 'Wedding',
             description: 'Kintis Gets Married',
-            location: 'Mars',
-            longitude: 2345.44,
-            latitude :  2345.44,
+            street: 'Mars',
+            state: 'CA',
+            primaryColor: 'red',
+            secondaryColor:'blue',
             startDate: '02/02/2019',
             endDate: '02/02/2019'
         },
@@ -35,9 +37,10 @@ module.exports = function(app)
             poster: 'Samuel Kintiz',
             type: 'Wedding',
             description: 'Kintis Gets Married',
-            location: 'Mars',
-            longitude: 2345.44,
-            latitude :  2345.44,
+            street: 'Mars',
+            state: 'CA',
+            primaryColor: 'red',
+            secondaryColor:'blue',
             startDate: '02/02/2019',
             endDate: '02/02/2019'
         }
@@ -55,9 +58,10 @@ input EventInput {
     poster: String
     type: String
     description: String
-    location: String
-    longitude: Float
-    latitude : Float
+    street: String
+    state: String
+    primaryColor: String,
+    secondaryColor: String,
     startDate: String
     endDate: String
 },
@@ -67,9 +71,10 @@ type Event {
     poster: String
     type: String
     description: String
-    location: String
-    longitude: Float
-    latitude : Float
+    street: String
+    state: String
+    primaryColor: String,
+    secondaryColor: String,
     startDate: String
     endDate: String
 },
@@ -109,7 +114,7 @@ type Mutation {
       
     } */ 
     var getEvents = function() {
-       Event.find(function(err,Data)
+       Event.find(function(err,events)
        {
            if(err)
            {
@@ -117,12 +122,14 @@ type Mutation {
            }
            else
            {
-            return Event.Data;
+         //  eventData = events;
+           console.log(events);
+            
            }
-       
+          
        });
 
-      
+       return eventData;
     }
     
     var updateEvent = function(args)
