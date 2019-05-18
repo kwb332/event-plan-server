@@ -3,8 +3,8 @@ var { buildSchema } = require('graphql');
 var Event = require('./event.model');
 module.exports = function(app)
 {
-    
-    var eventData = [
+   
+   /* var eventData = [
         {
             id: 1,
             title: 'The Complete Node.js Developer Course',
@@ -44,12 +44,12 @@ module.exports = function(app)
             startDate: '02/02/2019',
             endDate: '02/02/2019'
         }
-    ]
+    ] */
 
 // GraphQL schema
 var schema = buildSchema(`
 type Query {
-    event(id: Int!): Event
+    event(id: String!): Event
     events : [Event]
 },
 
@@ -65,8 +65,23 @@ input EventInput {
     startDate: String
     endDate: String
 },
+input EventUpdateInput {
+    id : Int
+    _id: String
+    title: String
+    poster: String
+    type: String
+    description: String
+    street: String
+    state: String
+    primaryColor: String,
+    secondaryColor: String,
+    startDate: String
+    endDate: String
+},
 type Event {
     id: Int
+    _id: String
     title: String
     poster: String
     type: String
@@ -79,7 +94,7 @@ type Event {
     endDate: String
 },
 type Mutation {
-    updateEvent(EventInput: Int!): Event
+    updateEvent(updateEvent: EventUpdateInput!): Event
     addEvent(newEvent : EventInput!): Boolean
 }
 `);
@@ -90,20 +105,25 @@ type Mutation {
 
   */
 
-    var getEvent = function(args) { 
+    var getEvent = function(args,res) { 
         var id = args.id;
-
-        Event.findById(id, function(err,events)
+        let foundEvent = null;
+        Event.findById(id, function(err,event)
         {
-             
-        });
-        return eventData.filter(curEvent => {
-            return curEvent.id == id;
-        })[0];
+           if(err)  
+           {
+               console.log(err);
+           }
+           res.json = {data: [res, event]};
+           return res.json;
+        }
+        );
+        
     }
    /*To fetch all existing events
  */ 
     var getEvents = function() {
+     
        Event.find(function(err,events)
        {
            if(err)
@@ -113,7 +133,6 @@ type Mutation {
            else
            {
             eventData = events;
-           console.log(events);
             
            }
           
@@ -124,6 +143,35 @@ type Mutation {
     
     var updateEvent = function(args)
     {
+        var id = args.updateEvent.id;
+        console.log(id);
+        Event.findById(id, function(err,res)
+        {
+            if(err)
+            {
+                console.log("There is an error");
+                console.log(err);
+            } 
+            if(res)
+            {
+                console.log("Panda Panda");
+                console.log(res);
+               var eventToUpdate = events.filter(curEvent => {
+                    return curEvent.id == id;
+                })[0]
+                console.log(JSON.stringify(eventToUpdate));
+                _merge(eventToUpdate, args.updateEvent);
+                Event.save(eventToUpdate,function(err)
+                {
+                   if(err)
+                   {
+                       console.log()
+                   }
+                })
+               return event;
+            }
+        });
+       
         eventData.map(curEvent => {
             if (curEvent.id === args.id) {
                 curEvent.description = args.description;
@@ -137,22 +185,38 @@ type Mutation {
 addEvent - Adds new event and returns true if successful.  Returns false if it is not successful because of event conflict. */
     var addEvent = function(args) {
        var newEvent  = new Event(args.newEvent);
-       newEvent.save(function(err)
-       {
-           if(err)
-           {
-              console.log(err);
-           }
-       });
+       console.log("Adding");
+       eventData = getEvents();
        var startDate = new Date(args.newEvent.startDate);
-       var endDate = new Date(args.newEvent.EndDate);
-       var conflicts =  eventData.filter(curEvent => new Date(curEvent.startDate) <= startDate && new Date(curEvent.EndDate) > endDate);
+       var endDate = new Date(args.newEvent.endDate);
+       var conflicts =  eventData.filter(curEvent => curEvent.startDate >= startDate && curEvent.endDate <= endDate);
+       console.log(JSON.stringify(conflicts));
        if(conflicts.length > 0)
-           return false;
+       {
+           isAdded = false;
+       }
        else
-           eventData.push(args.newEvent);
-           return true;
+       {
+        newEvent.save(function(err)
+        {
+            if(err)
+            {
+               console.log(err);
+               isAdded = false;
+            }
+            else
+            {
+                 isAdded = true;
+            }
+        });
+       }
+
+      
+  
+       return isAdded;
     }
+
+    var eventData = getEvents();
 // Root resolver
     var root = {
         event: getEvent,

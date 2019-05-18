@@ -30,4 +30,4 @@ catch(err)
 // Create an express server and a GraphQL endpoint
 var app = express();
 var event = require('./event.routes.js')(app);
-app.listen(4000, () => console.log('Express GraphQL Server Now Running On localhost:4000/graphql'));
+app.listen("https://raggioeventplan.herokuapp.com", () => console.log('Express GraphQL Server Now Running On localhost:4000/graphql'));
