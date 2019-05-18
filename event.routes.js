@@ -112,7 +112,7 @@ type Mutation {
            }
            else
            {
-         //  eventData = events;
+            eventData = events;
            console.log(events);
             
            }

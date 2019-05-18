@@ -19,7 +19,8 @@ var express = require('express')
 var mongose = require('mongoose');
 try
 {
-mongose.connect("mongodb+srv://admin:admin@cluster0-rknoo.mongodb.net/Event?retryWrites=true",{ useNewUrlParser: true });
+mongose.connect("mongodb+srv://admin:admin@cluster0-rknoo.mongodb.net/events?retryWrites=true",{ useNewUrlParser: true });
+//mongose.connect("mongodb://localhost:27017/events",{ useNewUrlParser: true });
 
 }
 catch(err)
