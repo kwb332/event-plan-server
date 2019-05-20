@@ -1,50 +1,10 @@
+var _= require("lodash");
 var express_graphql = require('express-graphql');
 var { buildSchema } = require('graphql');
 var Event = require('./event.model');
 module.exports = function(app)
 {
    
-   /* var eventData = [
-        {
-            id: 1,
-            title: 'The Complete Node.js Developer Course',
-            poster: 'Samuel Kintiz',
-            type: 'Wedding',
-            description: 'Kintis Gets Married',
-            street: 'Mars',
-            state: 'CA',
-            primaryColor: 'red',
-            secondaryColor:'blue',
-            startDate: '02/02/2019',
-            endDate: '02/02/2019'
-        },
-        {
-            id: 2,
-            title: 'The Complete Node.js Developer Course',
-            poster: 'Samuel Kintiz',
-            type: 'Wedding',
-            description: 'Kintis Gets Married',
-            street: 'Mars',
-            state: 'CA',
-            primaryColor: 'red',
-            secondaryColor:'blue',
-            startDate: '02/02/2019',
-            endDate: '02/02/2019'
-        },
-        {
-            id: 3,
-            title: 'The Complete Node.js Developer Course',
-            poster: 'Samuel Kintiz',
-            type: 'Wedding',
-            description: 'Kintis Gets Married',
-            street: 'Mars',
-            state: 'CA',
-            primaryColor: 'red',
-            secondaryColor:'blue',
-            startDate: '02/02/2019',
-            endDate: '02/02/2019'
-        }
-    ] */
 
 // GraphQL schema
 var schema = buildSchema(`
@@ -115,8 +75,10 @@ type Mutation {
            {
                console.log(err);
            }
-           res.json = {data: [res, event]};
-           return res.json;
+            if(event)
+            {
+                return event;
+            }
         }
         );
         
@@ -144,42 +106,33 @@ type Mutation {
     
     var updateEvent = function(args)
     {
-        var id = args.updateEvent.id;
-        console.log(id);
-        Event.findById(id, function(err,res)
+        var id = args.updateEvent._id;
+      
+        Event.findById(id, function(err, foundEvent)
         {
             if(err)
             {
                 console.log("There is an error");
                 console.log(err);
             } 
-            if(res)
+            if(foundEvent)
             {
-                console.log("Panda Panda");
-                console.log(res);
-               var eventToUpdate = events.filter(curEvent => {
-                    return curEvent.id == id;
-                })[0]
-                console.log(JSON.stringify(eventToUpdate));
-                _merge(eventToUpdate, args.updateEvent);
-                Event.save(eventToUpdate,function(err)
+               
+                console.log(foundEvent);
+            
+             
+                _.merge(foundEvent, args.updateEvent);
+                foundEvent.save(function(err)
                 {
                    if(err)
                    {
-                       console.log()
+                       console.log(err)
                    }
                 })
-               return event;
+               return foundEvent;
             }
         });
        
-        eventData.map(curEvent => {
-            if (curEvent.id === args.id) {
-                curEvent.description = args.description;
-                return curEvent;
-            }
-        });
-        return eventData.filter(curEvent => curEvent.id === args.id) [0];
     }
 
     var deleteEvent = function(args)
@@ -209,7 +162,6 @@ addEvent - Adds new event and returns true if successful.  Returns false if it i
     var addEvent = function(args) {
        var newEvent  = new Event(args.newEvent);
        var isAdded = false;
-       console.log("Adding");
        eventData = getEvents();
        var startDate = new Date(args.newEvent.startDate);
        var endDate = new Date(args.newEvent.endDate);
