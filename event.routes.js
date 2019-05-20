@@ -96,6 +96,7 @@ type Event {
 type Mutation {
     updateEvent(updateEvent: EventUpdateInput!): Event
     addEvent(newEvent : EventInput!): Boolean
+    deleteEvent(_id : String!) : Boolean
 }
 `);
 
@@ -181,16 +182,38 @@ type Mutation {
         return eventData.filter(curEvent => curEvent.id === args.id) [0];
     }
 
+    var deleteEvent = function(args)
+    {
+        var id = args._id;
+        var result = false;
+        Event.findByIdAndRemove(id, result = function(err)
+        {
+            
+            if(err)
+            {
+                console.log("There is an error");
+                console.log(err);
+                return result;
+            } 
+            else
+            {
+              result = true;
+              return result;
+            }
+        });
+       
+    }
+
     /*  Add a new Event
 addEvent - Adds new event and returns true if successful.  Returns false if it is not successful because of event conflict. */
     var addEvent = function(args) {
        var newEvent  = new Event(args.newEvent);
+       var isAdded = false;
        console.log("Adding");
        eventData = getEvents();
        var startDate = new Date(args.newEvent.startDate);
        var endDate = new Date(args.newEvent.endDate);
        var conflicts =  eventData.filter(curEvent => curEvent.startDate >= startDate && curEvent.endDate <= endDate);
-       console.log(JSON.stringify(conflicts));
        if(conflicts.length > 0)
        {
            isAdded = false;
@@ -222,6 +245,7 @@ addEvent - Adds new event and returns true if successful.  Returns false if it i
         event: getEvent,
         events: getEvents,
         updateEvent: updateEvent,
+        deleteEvent: deleteEvent,
         addEvent : addEvent
       };
   
