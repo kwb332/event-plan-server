@@ -163,15 +163,8 @@ addEvent - Adds new event and returns true if successful.  Returns false if it i
        eventData = getEvents();
        var startDate = args.newEvent.startDate;
        var endDate = args.newEvent.endDate;
-
-       console.log(endDate);
-       var conflicts =  eventData.filter(curEvent => curEvent.startDate >= startDate && curEvent.endDate <= endDate);
-       if(conflicts.length > 0)
-       {
-           isAdded = false;
-       }
-       else
-       {
+       
+     
         newEvent.save(function(err)
         {
             if(err)
@@ -184,9 +177,7 @@ addEvent - Adds new event and returns true if successful.  Returns false if it i
                  isAdded = true;
             }
         });
-       }
-
-      
+       
   
        return isAdded;
     }
