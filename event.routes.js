@@ -134,27 +134,26 @@ type Mutation {
        
     }
 
-    var deleteEvent = async function(args)
+    var deleteEvent =  function(args)
     {
         var id = args._id;
-        var result = false;
-       await Event.findByIdAndRemove(id, result = function(err)
+       
+       return Event.findByIdAndRemove(id, result = function(err)
         {
             
             if(err)
             {
                 console.log("There is an error");
                 console.log(err);
-                return result;
+              
             } 
             else
             {
-              result = true;
-              return result;
+             
             }
         });
 
-        return result;
+       
        
     }
 
