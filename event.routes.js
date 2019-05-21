@@ -64,10 +64,10 @@ type Mutation {
 
   */
 
-    var getEvent = function(args,res) { 
+    var getEvent = async function(args,res) { 
         var id = args.id;
         let foundEvent = null;
-        Event.findById(id, function(err,event)
+        await Event.findById(id, function(err,event)
         {
            if(err)  
            {
@@ -75,17 +75,16 @@ type Mutation {
            }
             if(event)
             {
-                return event;
+                foundEvent = event;
             }
         }
         );
-        
+           return foundEvent;
     }
    /*To fetch all existing events
  */ 
-    var getEvents = function() {
-
-       Event.find(function(err,events)
+    var getEvents = async function() {
+       return await Event.find(function(err,events)
        {
            if(err)
            {
@@ -93,20 +92,19 @@ type Mutation {
            }
            if(events)
            {
-            eventData = events;
+           
             
            }
           
        });
-
-       return eventData;
+        
     }
     
-    var updateEvent = function(args)
+    var updateEvent = async function(args)
     {
         var id = args.updateEvent._id;
-      
-        Event.findById(id, function(err, foundEvent)
+        var results = null;
+        await Event.findById(id,  function(err, foundEvent)
         {
             if(err)
             {
@@ -126,18 +124,21 @@ type Mutation {
                    {
                        console.log(err)
                    }
+                   results = foundEvent;
                 })
-               return foundEvent;
+              
             }
         });
+
+        return results;
        
     }
 
-    var deleteEvent = function(args)
+    var deleteEvent = async function(args)
     {
         var id = args._id;
         var result = false;
-        Event.findByIdAndRemove(id, result = function(err)
+       await Event.findByIdAndRemove(id, result = function(err)
         {
             
             if(err)
@@ -152,20 +153,21 @@ type Mutation {
               return result;
             }
         });
+
+        return result;
        
     }
 
     /*  Add a new Event
 addEvent - Adds new event and returns true if successful.  Returns false if it is not successful because of event conflict. */
-    var addEvent = function(args) {
+    var addEvent = async function(args) {
        var newEvent  = new Event(args.newEvent);
        var isAdded = false;
-       eventData = getEvents();
        var startDate = args.newEvent.startDate;
        var endDate = args.newEvent.endDate;
        
      
-        newEvent.save(function(err)
+       await newEvent.save(function(err)
         {
             if(err)
             {
@@ -182,7 +184,7 @@ addEvent - Adds new event and returns true if successful.  Returns false if it i
        return isAdded;
     }
 
-    var eventData = getEvents();
+  //  var eventData = getEvents();
 // Root resolver
     var root = {
         event: getEvent,
