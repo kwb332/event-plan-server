@@ -26,7 +26,6 @@ input EventInput {
     endDate: String
 },
 input EventUpdateInput {
-    id : Int
     _id: String
     title: String
     poster: String
@@ -40,7 +39,6 @@ input EventUpdateInput {
     endDate: String
 },
 type Event {
-    id: Int
     _id: String
     title: String
     poster: String
@@ -86,14 +84,14 @@ type Mutation {
    /*To fetch all existing events
  */ 
     var getEvents = function() {
-     
+
        Event.find(function(err,events)
        {
            if(err)
            {
                console.log(err);
            }
-           else
+           if(events)
            {
             eventData = events;
             
@@ -163,8 +161,10 @@ addEvent - Adds new event and returns true if successful.  Returns false if it i
        var newEvent  = new Event(args.newEvent);
        var isAdded = false;
        eventData = getEvents();
-       var startDate = new Date(args.newEvent.startDate);
-       var endDate = new Date(args.newEvent.endDate);
+       var startDate = args.newEvent.startDate;
+       var endDate = args.newEvent.endDate;
+
+       console.log(endDate);
        var conflicts =  eventData.filter(curEvent => curEvent.startDate >= startDate && curEvent.endDate <= endDate);
        if(conflicts.length > 0)
        {
