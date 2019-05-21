@@ -134,26 +134,26 @@ type Mutation {
        
     }
 
-    var deleteEvent =  function(args)
+   
+    var deleteEvent = function(args)
     {
         var id = args._id;
-       
-       return Event.findByIdAndRemove(id, result = function(err)
+        var result = false;
+        Event.findByIdAndRemove(id, result = function(err)
         {
             
             if(err)
             {
                 console.log("There is an error");
                 console.log(err);
-              
+                return result;
             } 
             else
             {
-             
+              result = true;
+              return result;
             }
         });
-
-       
        
     }
 
