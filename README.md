@@ -31,7 +31,7 @@ Once you’ve completed the test please email a link to a Github/Bitbucket repo.
 
 If possible please also host the page somewhere and supply the link so that we can test it easily.
 ******************What I have done ******************
-The main application is in event.routes.js.  The application uses the following technologies graphQL, node.js as the server, mongo DB, mongose (to querry mongoDB).  
+The main application is in event.routes.js.  The application uses the following technologies graphQL, node.js as the server, mongo DB, mongose (to querry mongoDB).  Please use code in production branch as master is not updated 
 
 The code presented is the backend code for the application.
 
