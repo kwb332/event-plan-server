@@ -5,7 +5,7 @@ var root = require('./event.routes');
 module.exports = function(app)
 {
 
- 
+   //I could put logic here to lazy load or inject the schema I want using dependancy injection 
     app.use('/graphql', express_graphql({
         schema: modelschema,
         rootValue: root,
