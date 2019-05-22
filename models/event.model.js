@@ -1,5 +1,8 @@
 var mongose = require('mongoose');
 
+
+
+
 var eventSchema = mongose.Schema({
     id: Number,
     title: String,
@@ -13,6 +16,7 @@ var eventSchema = mongose.Schema({
     startDate: Date,
     endDate: Date,
 });
-module.exports = mongose.model('Event', eventSchema);
 
+
+module.exports = mongose.model('Event', eventSchema);
 

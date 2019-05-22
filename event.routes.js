@@ -1,7 +1,7 @@
 var _= require("lodash");
 var express_graphql = require('express-graphql');
 var { buildSchema } = require('graphql');
-var Event = require('./event.model');
+var Event = require('./models/event.model');
 module.exports = function(app)
 {
    
